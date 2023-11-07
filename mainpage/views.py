@@ -5,21 +5,10 @@ from .kafka_producer import send_kafka_message
 import socket, random, platform, os
 
 kafka_message_count = 0
-
-
-def get_pod_name():
-    # 쿠버네티스 환경 변수에서 파드 이름 가져오기
-    pod_name = os.getenv('POD_NAME')
-
-    # 쿠버네티스 환경 변수가 없으면 호스트네임 사용
-    if not pod_name:
-        pod_name = socket.gethostname()
-
-    return pod_name   # 현재 파드의 이름을 가져옵니다.
+pod_name = os.getenv('POD_NAME', socket.gethostname())
 
 def index(request):
-    global kafka_message_count
-    pod_name = get_pod_name()
+    global kafka_message_count, pod_name
 
     context = {'pod_name': pod_name, 
                'kafka_message_count': kafka_message_count}
@@ -27,8 +16,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 def send(request):
-    global kafka_message_count
-    pod_name = get_pod_name()
+    global kafka_message_count, pod_name
 
     message = f"Hello from Pod: {pod_name}, Message Count: {kafka_message_count}"
     send_kafka_message(message)
@@ -44,8 +32,7 @@ def reset(request):
     return redirect('index')
 
 def random_menu(request):
-    global kafka_message_count
-    pod_name = get_pod_name()
+    global kafka_message_count, pod_name
 
     # 무작위 아이템 선택
     sample_list = ['Nike', 'Adidas', 'Newbalance', 'Salomon', 'Jordan', 'Converse']
@@ -59,8 +46,7 @@ def random_menu(request):
     return redirect('index')  # 기존 페이지로 리다이렉트
 
 def send_os_info(request):
-    global kafka_message_count
-    pod_name = get_pod_name()
+    global kafka_message_count, pod_name
     # 현재 OS 정보 가져오기
     os_info = platform.system()
 
@@ -71,8 +57,7 @@ def send_os_info(request):
     return redirect('index')  # 기존 페이지로 리다이렉트
 
 def k_menu(request):
-    global kafka_message_count
-    pod_name = get_pod_name()
+    global kafka_message_count, pod_name
     sample_list = ['Nike', 'Adidas', 'Newbalance', 'Salomon', 'Jordan', 'Converse']
 
     # 무작위 아이템과 수량을 선택하고 메시지 전달
