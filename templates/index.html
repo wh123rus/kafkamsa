@@ -1,0 +1,55 @@
+<!-- templates/send_pod_name.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Pod Name</title>
+</head>
+<body>
+    <h1>Kafka MSA</h1>
+    <p>현재 파드 이름: {{ pod_name }}</p>
+
+    <p>버튼을 클릭해서 Kafka로 메시지를 전달:</p>
+    <p>
+        <form action="{% url 'send' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">파드 이름 전송</button>
+        </form>
+    </p>
+
+    <p>
+        <form action="{% url 'random_menu' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">무작위 아이템과 수량 전송</button>
+        </form>
+    </p>
+    
+    <p>
+        <form action="{% url 'send_os_info' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">OS 정보 전송</button>
+        </form>
+    </p>
+
+    <p>
+        <form action="{% url 'k_menu' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">1000번 전송</button>
+        </form>
+        </p>
+
+    <p>
+        보낸 횟수: {{kafka_message_count}}
+            <form action="{% url 'reset' %}" method="post">
+            {% csrf_token %}
+        <button type="submit">Reset</button>
+    </form>
+    </p>
+
+    
+    
+
+</body>
+</html>
