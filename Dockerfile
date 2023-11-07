@@ -9,7 +9,7 @@ COPY . /app/
 
 # 필요한 패키지 설치 (Alpine 리눅스에서는 필요한 패키지를 apk를 통해 설치합니다)
 RUN apk update && apk add --no-cache \
-    openjdk11-jre snappy-dev build-base gcc\
+    snappy-dev build-base gcc\
     && pip install --upgrade pip \
     && pip install -r requirements.txt --no-cache-dir
 
