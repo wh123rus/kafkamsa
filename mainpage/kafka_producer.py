@@ -1,14 +1,21 @@
 from kafka import KafkaProducer
-import os
+import os, traceback
 
-def send_kafka_message(message):
+def send_kafka_message(message, topic='quickstart-events'):
     broker = os.getenv('BROKER_ENV', 'localhost:9092')
+    try:
+        data = (message).encode('utf-8')
+        
+        producer = KafkaProducer(bootstrap_servers=broker, compression_type='snappy')
+        if producer.bootstrap_connected():
+            producer.send(topic, value=data)
+            producer.flush()
+            producer.close()
+            print("Message sent successfully!")
 
-    producer = KafkaProducer(bootstrap_servers=broker)
-    if isinstance(message, str):
-        message = message.encode('utf-8')
+        else:  
+            print("Failed to connect to Kafka broker.")
 
-    topic = os.getenv('TOPIC_ENV', 'quickstart-events')
-
-    producer.send(topic, value=message)
-    producer.close()
+    except Exception as e:
+        print(f"Failed to send message to Kafka: {e}")
+        print(traceback.format_exc())  # 전체 예외 정보를 출력

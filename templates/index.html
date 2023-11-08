@@ -13,9 +13,9 @@
 
     <p>버튼을 클릭해서 Kafka로 메시지를 전달:</p>
     <p>
-        <form action="{% url 'send' %}" method="post">
+        <form action="{% url 'send_info' %}" method="post">
             {% csrf_token %}
-            <button type="submit">파드 이름 전송</button>
+            <button type="submit">파드 정보 전송</button>
         </form>
     </p>
 
@@ -25,13 +25,6 @@
             <button type="submit">무작위 아이템과 수량 전송</button>
         </form>
     </p>
-    
-    <p>
-        <form action="{% url 'send_os_info' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">OS 정보 전송</button>
-        </form>
-    </p>
 
     <p>
         <form action="{% url 'k_menu' %}" method="post">
@@ -39,17 +32,6 @@
             <button type="submit">1000번 전송</button>
         </form>
         </p>
-
-    <p>
-        보낸 횟수: {{kafka_message_count}}
-            <form action="{% url 'reset' %}" method="post">
-            {% csrf_token %}
-        <button type="submit">Reset</button>
-    </form>
-    </p>
-
-    
-    
 
 </body>
 </html>
