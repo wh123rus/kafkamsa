@@ -1,16 +1,26 @@
 from kafka import KafkaConsumer
-import mariadb
+import mariadb, os
 
-# Kafka 소비자 설정
-consumer = KafkaConsumer('testdb',
-                        bootstrap_servers='localhost:9092')
+# DB 환경 변수 받아오기
+db_user = os.getenv('MARIA_DB_USER', 'user')
+db_passwd = os.getenv('MARIA_DB_PASSWARD', 'user')
+db_host = os.getenv('MARIA_DB_HOST', 'localhost')
+db_database = os.getenv('MARIA_DB_DATABASE_NAME', 'test')
+db_table = os.getenv('MARIA_DB_TABLE', 'testmenu')
+
+# Kafka 환경 변수 받아오기
+kafka_topic = os.getenv('TOPIC_ENV', 'testdb')
+kafka_broker = os.getenv('BROKER_ENV', 'localhost:9092')
+
+# Kafka consumer 설정
+consumer = KafkaConsumer(kafka_topic, bootstrap_servers=kafka_broker)
 
 # MySQL 연결 설정
 conn_params= {
-    "user" : "user",
-    "password" : "user",
-    "host" : "172.17.0.2",
-    "database" : "test"
+    "user" : db_user,
+    "password" : db_passwd,
+    "host" : db_host,
+    "database" : db_database
 }
 connection= mariadb.connect(**conn_params)
 
@@ -28,7 +38,7 @@ for message in consumer:
 
         # MariaDB에 데이터 저장
         with connection.cursor() as cursor:
-            sql = "INSERT INTO testmenu (pod_name, name, item, number, uuid) VALUES (%s, %s, %s, %s, %s)"
+            sql = "INSERT INTO {} (pod_name, name, item, number, uuid) VALUES (%s, %s, %s, %s, %s)".format(db_table)
             cursor.execute(sql, (pod_name, name, item, number, uuid))
             connection.commit()
 
