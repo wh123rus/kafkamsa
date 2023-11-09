@@ -2,30 +2,51 @@
 Kafka를 이용한 간단한 Django 앱 Docker image 파일
 
 ## 환경 변수
-- 파드 이름 : POD_NAME
-- 토픽 이름 : TOPIC_ENV
-- 브로커 주소 : BROKER_ENV
+- POD_NAME : 파드 이름 (기본값 : 호스트 네임)
+- POD_IP : 파드 IP (기본값: hostip)
+- INFO_TOPIC : 정보 메시지의 토픽 (기본값 : quickstart-events)
+- SHOP_TOPIC : 매장 메시지의 토픽 (기본값 : quickstart-events)
 
 ## 사용방법
 대응하는 링크에 접속 시 환경 변수에 설정한 파드 이름, 토픽 이름, 브로커 주소로 kafka 메시지가 전송된다.
-메시지를 전송할 때마다 전체 메시지를 수를 세는 카운트가 증가하며, 모든 메시지엔 카운트가 포함된다.
 
-- CONTAINER_IP/send : 파드의 이름 전달
+## 접속 가능 URL
+- CONTAINER_IP/send : 파드의 정보 전달
 ```Plain Text
-Hello from Pod: POD_NAME, Message Count: N
+Pod Name: {pod_name}, Pod IP: {pod_ip}
 ```
+
 - CONTAINER_IP/random_menu : 무작위 아이템과 수량 전달
 ```Plain Text
-Random Element from Pod: POD_NAME, Element: RANDOM_ITEM, Number: RANDOM_NUMBER, Message Count: N
-```
+Pod Name: {pod_name}, Name: {random_name}, Item: {random_item}, Number: {random_number}, UUID: {userid}```
+
 - CONTAINER_IP/k_menu : 무작위 아이템과 수량 1000번 전달
 ```Plain Text
-Random Element from Pod: POD_NAME, Element: RANDOM_ITEM, Number: RANDOM_NUMBER, Message Count: N
-...
-Random Element from Pod: POD_NAME, Element: RANDOM_ITEM, Number: RANDOM_NUMBER, Message Count: N+1000
+Pod Name: {pod_name}, Name: {random_name}, Item: {random_item}, Number: {random_number}, UUID: {userid}
 ```
-- CONTAINER_IP/send_os_info : 컨테이너의 운영체제 전달
-```Plain Text
-OS Info from Pod: POD_NAME, OS: Linux, Message Count: N
+
+### 쿠버네티스 생성시 파드 IP 설정 방법
+쿠버네티스 api를 사용해 생성되는 파드의 IP를 받아와 환경변수에 지정할 수 있다.
+```YAML
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: my-image
+  env:
+  - name: POD_IP
+    valueFrom:
+      fieldRef:
+        fieldPath: status.podIP
 ```
-- CONTAINER_IP/reset : 메시지 카운트 숫자 0으로 초기화
+
+# Consumer Container
+지정한 토픽의 컨슈머가 되어서 연결해둔 DB로 카프카 메시지를 저장한다.
+## 생성중인 환경 변수
+- DB 정보
+- 브로커 주소
+- 토픽 이름
+- 테이블 이름
