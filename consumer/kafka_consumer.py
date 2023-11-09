@@ -19,6 +19,7 @@ sasl_passwd = os.getenv('SASL_PASSWORD', 'cccr')
 broker_params= {
             "bootstrap_servers" : kafka_broker,
             "security_protocol" : 'SASL_PLAINTEXT',
+            "sasl_mechanism" : 'PLAIN',
             "sasl_plain_username" : sasl_user,
             "sasl_plain_password" : sasl_passwd
         }

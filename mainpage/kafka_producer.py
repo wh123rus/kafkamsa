@@ -13,6 +13,7 @@ def send_kafka_message(message, topic='quickstart-events'):
             "bootstrap_servers" : broker,
             "compression_type" : 'snappy',
             "security_protocol" : 'SASL_PLAINTEXT',
+            "sasl_mechanism" : 'PLAIN',
             "sasl_plain_username" : sasl_user,
             "sasl_plain_password" : sasl_passwd
         }
