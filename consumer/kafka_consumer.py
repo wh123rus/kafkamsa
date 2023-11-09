@@ -11,8 +11,18 @@ db_table = os.getenv('MARIA_DB_TABLE', 'testmenu')
 # Kafka 환경 변수 받아오기
 kafka_topic = os.getenv('TOPIC_ENV', 'testdb')
 kafka_broker = os.getenv('BROKER_ENV', 'localhost:9092')
+sasl_user = os.getenv('SASL_USER', 'cccr')
+sasl_passwd = os.getenv('SASL_PASSWORD', 'cccr')
+
 
 # Kafka consumer 설정
+broker_params= {
+            "bootstrap_servers" : kafka_broker,
+            "security_protocol" : 'SASL_PLAINTEXT',
+            "sasl_plain_username" : sasl_user,
+            "sasl_plain_password" : sasl_passwd
+        }
+
 consumer = KafkaConsumer(kafka_topic, bootstrap_servers=kafka_broker)
 
 # MySQL 연결 설정
