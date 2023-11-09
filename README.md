@@ -47,8 +47,20 @@ spec:
 
 # Consumer Container
 지정한 토픽의 컨슈머가 되어서 연결해둔 DB로 카프카 메시지를 저장한다.
-## 생성중인 환경 변수
-- DB 정보
-- 브로커 주소
-- 토픽 이름
-- 테이블 이름
+Django의 /random_menu /k_menu 두 url에 접속시에 전달한 메시지를 슬라이싱하여 DB에 저장한다.
+
+
+## 환경 변수
+### DB 정보
+- MARIA_DB_USER user
+- MARIA_DB_PASSWARD user
+- MARIA_DB_HOST localhost
+- MARIA_DB_DATABASE_NAME test
+- MARIA_DB_TABLE testmenu
+
+### kafka 정보
+- TOPIC_ENV testdb
+- BROKER_ENV localhost:9092
+- SASL_USER cccr
+- SASL_PASSWORD cccr
+
