@@ -11,7 +11,7 @@ def send_kafka_message(message, topic='quickstart-events'):
             producer.send(topic, value=data)
             producer.flush()
             producer.close()
-            print("Message sent successfully!")
+            print(f"Message sent to {topic} successfully!")
 
         else:  
             print("Failed to connect to Kafka broker.")
