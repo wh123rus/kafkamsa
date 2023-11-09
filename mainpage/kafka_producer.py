@@ -3,8 +3,8 @@ import os, traceback
 
 def send_kafka_message(message, topic='quickstart-events'):
     broker = os.getenv('BROKER_ENV', 'localhost:9092')
-    sasl_user = os.getenv('SASL_USER', 'user')
-    sasl_passwd = os.getenv('SASL_PASSWORD', 'user')
+    sasl_user = os.getenv('SASL_USER', 'cccr')
+    sasl_passwd = os.getenv('SASL_PASSWORD', 'cccr')
 
     try:
         data = (message).encode('utf-8')
