@@ -1,17 +1,19 @@
 from kafka import KafkaConsumer
-import pymysql
+import mariadb
 
 # Kafka 소비자 설정
 consumer = KafkaConsumer('testdb',
                         bootstrap_servers='localhost:9092')
 
 # MySQL 연결 설정
-connection = pymysql.connect(
-    host='localhost:3306',
-    user='user',
-    password='user',
-    database='test'
-)
+conn_params= {
+    "user" : "user",
+    "password" : "user",
+    "host" : "172.17.0.2",
+    "database" : "test"
+}
+connection= mariadb.connect(**conn_params)
+
 
 # Kafka 메시지 소비 및 MariaDB에 저장
 for message in consumer:
@@ -26,7 +28,7 @@ for message in consumer:
 
         # MariaDB에 데이터 저장
         with connection.cursor() as cursor:
-            sql = "INSERT INTO your_table (pod_name, name, item, number, uuid) VALUES (%s, %s, %s, %s, %s)"
+            sql = "INSERT INTO testmenu (pod_name, name, item, number, uuid) VALUES (%s, %s, %s, %s, %s)"
             cursor.execute(sql, (pod_name, name, item, number, uuid))
             connection.commit()
 
