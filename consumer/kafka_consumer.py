@@ -24,7 +24,7 @@ broker_params= {
             "sasl_plain_password" : sasl_passwd
         }
 
-consumer = KafkaConsumer(kafka_topic, bootstrap_servers=kafka_broker)
+consumer = KafkaConsumer(kafka_topic, **broker_params)
 
 # MySQL 연결 설정
 conn_params= {
