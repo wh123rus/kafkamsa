@@ -1,5 +1,5 @@
 from kafka import KafkaConsumer
-import mariadb, os
+import mariadb, os, datetime
 
 # DB 환경 변수 받아오기
 db_user = os.getenv('MARIA_DB_USER', 'user')
@@ -53,7 +53,8 @@ for message in consumer:
             cursor.execute(sql, (pod_name, name, item, number, uuid))
             connection.commit()
 
-        print("Data inserted into MariaDB successfully!")
+        current_time = datetime.datetime.now()
+        print(f"{current_time} Data inserted into MariaDB successfully!")
 
     except Exception as e:
         print(f"Failed to process or insert data: {e}")
