@@ -47,6 +47,7 @@ spec:
 ```
 
 # Consumer Container
+MariaDB를 kafka의 컨슈머와 연결하는 컨테이너이다.
 지정한 토픽의 컨슈머가 되어서 연결해둔 DB로 카프카 메시지를 저장한다.
 Django의 /random_menu /k_menu 두 url에 접속시에 전달한 메시지를 슬라이싱하여 DB에 저장한다.
 
