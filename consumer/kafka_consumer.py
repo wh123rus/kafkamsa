@@ -26,6 +26,9 @@ broker_params= {
 
 consumer = KafkaConsumer(kafka_topic, **broker_params)
 
+if consumer.bootstrap_connected():
+    print(f"Consumer connected to {kafka_broker} with Topic:{kafka_topic}!!")
+
 # MySQL 연결 설정
 conn_params= {
     "user" : db_user,
@@ -33,9 +36,14 @@ conn_params= {
     "host" : db_host,
     "database" : db_database
 }
-connection= mariadb.connect(**conn_params)
+try:
+    connection = mariadb.connect(**conn_params)
+    print(f"Connected to MariaDB: {db_host} - {db_database}")
 
-
+except mariadb.Error as e:
+    print(f"Error connecting to MariaDB: {e}")
+    exit(1)
+    
 # Kafka 메시지 소비 및 MariaDB에 저장
 for message in consumer:
     try:
