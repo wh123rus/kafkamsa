@@ -20,7 +20,8 @@ Pod Name: {pod_name}, Pod IP: {pod_ip}
 
 - CONTAINER_IP/random_menu : 무작위 아이템과 수량 전달
 ```Plain Text
-Pod Name: {pod_name}, Name: {random_name}, Item: {random_item}, Number: {random_number}, UUID: {userid}```
+Pod Name: {pod_name}, Name: {random_name}, Item: {random_item}, Number: {random_number}, UUID: {userid}
+```
 
 - CONTAINER_IP/k_menu : 무작위 아이템과 수량 1000번 전달
 ```Plain Text
