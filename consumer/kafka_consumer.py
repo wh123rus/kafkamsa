@@ -7,7 +7,7 @@ db_passwd = os.getenv('MARIA_DB_PASSWARD', 'user')
 db_host = os.getenv('MARIA_DB_HOST', 'localhost')
 db_database = os.getenv('MARIA_DB_DATABASE_NAME', 'test')
 db_table = os.getenv('MARIA_DB_TABLE', 'testmenu')
-db_port = os.getenv('MARIA_DB_PORT')
+db_port = int(os.getenv('MARIA_DB_PORT'))
 
 # Kafka 환경 변수 받아오기
 kafka_topic = os.getenv('TOPIC_ENV', 'testdb')

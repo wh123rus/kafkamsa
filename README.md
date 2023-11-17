@@ -6,6 +6,7 @@ Kafka를 이용한 간단한 Django 앱 Docker image 파일
 - POD_IP : 파드 IP (기본값: hostip)
 - INFO_TOPIC : 정보 메시지의 토픽 (기본값 : quickstart-events)
 - SHOP_TOPIC : 매장 메시지의 토픽 (기본값 : quickstart-events)
+- BROKER_ENV : KaFka 브로커의 주소 (기본값 : localhost:9092)
 - SASL_USER : Producer SASL 암호화에 사용되는 사용자 이름 (기본값 : cccr)
 - SASL_PASSWORD : Producer SASL 암호화에 사용되는 비밀번호 (기본값 : cccr)
 
