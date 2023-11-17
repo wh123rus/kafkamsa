@@ -38,6 +38,7 @@ conn_params= {
     "database" : db_database,
     "port" : db_port
 }
+
 try:
     connection = mariadb.connect(**conn_params)
     print(f"Connected to MariaDB: {db_host} - {db_database}")
