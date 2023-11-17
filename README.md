@@ -57,6 +57,7 @@ Django의 /random_menu /k_menu 두 url에 접속시에 전달한 메시지를 �
 - MARIA_DB_USER : DB 사용자 (기본값: user)
 - MARIA_DB_PASSWARD : DB 사용자 비밀번호 (기본값: user)
 - MARIA_DB_HOST : DB 주소 (기본값: localhost)
+- MARIA_DB_PORT : DB 주소 (기본값: 3306)
 - MARIA_DB_DATABASE_NAME : DB 데이터베이스 이름 (기본값: test)
 - MARIA_DB_TABLE : DB 테이블 이름 (기본값: testmenu)
 
