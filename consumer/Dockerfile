@@ -4,9 +4,11 @@ WORKDIR /connector
 
 COPY . /connector/
 
-RUN apk update && apk add --no-cache python3-dev mariadb-connector-c mariadb-connector-c-dev build-base\
+RUN apk update && apk add --no-cache mariadb-connector-c-dev build-base\
     && pip install --upgrade pip \
-    && pip install -r requirements.txt --no-cache-dir
+    && pip install -r requirements.txt --no-cache-dir \
+    && apk del --rdepends --purge build-base
+
 
 ENTRYPOINT ["python3"]
 CMD ["kafka_consumer.py"]
