@@ -16,7 +16,8 @@ name_list = ['Kim', 'Lee', 'Park', 'Jo', 'Hong']
 def index(request):
     global pod_name
     
-    context = {'pod_name': pod_name}
+    context = {'pod_name': pod_name,
+               'item_list': item_list }
 
     return render(request, 'index.html', context)
 
@@ -58,3 +59,22 @@ def k_menu(request):
         send_kafka_message(message, shop_topic)
 
     return redirect('index')  # 기존 페이지로 리다이렉트
+
+def order_item(request):
+    global pod_name
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        selected_item = request.POST.get('selected_item')
+        quantity = request.POST.get('quantity')
+        userid = uuid.uuid4()
+
+        if name and selected_item and quantity:
+            # 메시지 생성
+            message = f"Pod Name: {pod_name}, Name: {name}, Item: {selected_item}, Number: {quantity}, UUID: {userid}"
+
+            # Kafka로 메시지 전송
+            send_kafka_message(message, shop_topic)
+
+    # 리다이렉트 또는 다른 처리가 필요하면 추가
+    return redirect('index')

@@ -11,13 +11,7 @@
     <h1>Kafka MSA</h1>
     <p>현재 파드 이름: {{ pod_name }}</p>
 
-    <p>버튼을 클릭해서 Kafka로 메시지를 전달:</p>
-    <p>
-        <form action="{% url 'send_info' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">파드 정보 전송</button>
-        </form>
-    </p>
+    <p>버튼을 클릭해서 Kafka로 메시지를 전달</p>
 
     <p>
         <form action="{% url 'random_menu' %}" method="post">
@@ -31,7 +25,35 @@
             {% csrf_token %}
             <button type="submit">1000번 전송</button>
         </form>
-        </p>
+
+    <p>
+    <h1>Order Item</h1>
+
+    <form action="{% url 'order_item' %}" method="post">
+        {% csrf_token %}
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required>
+
+        <br>
+
+        <label for="selected_item">Select Item:</label>
+        <select name="selected_item" id="selected_item">
+            {% for item in item_list %}
+                <option value="{{ item }}">{{ item }}</option>
+            {% endfor %}
+        </select>
+
+        <br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" id="quantity" required>
+
+        <br>
+
+        <button type="submit">Place Order</button>
+    </form>
+    </p>
 
 </body>
 </html>
