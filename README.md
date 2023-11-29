@@ -14,11 +14,6 @@ Kafka를 이용한 간단한 Django 앱 Docker image 파일
 대응하는 링크에 접속 시 환경 변수에 설정한 파드 이름, 토픽 이름, 브로커 주소로 kafka 메시지가 전송된다.
 
 ## 접속 가능 URL
-- CONTAINER_IP/send : 파드의 정보 전달
-```Plain Text
-Pod Name: {pod_name}, Pod IP: {pod_ip}
-```
-
 - CONTAINER_IP/random_menu : 무작위 아이템과 수량 전달
 ```Plain Text
 Pod Name: {pod_name}, Name: {random_name}, Item: {random_item}, Number: {random_number}, UUID: {userid}
